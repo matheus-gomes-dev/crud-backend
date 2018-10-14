@@ -10,7 +10,7 @@ const database = {
     return new Promise((resolve, reject) => {
       Product.paginate(
         queryData,
-        { skip: page * 5, limit: 5 },
+        { page, limit: 5 },
         (error, result) => {
           if (error) {
             console.error(error);
