@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const app = require('../app');
 const config = require('../config/config.js');
 const MONGO_URI = config.crudApp.localhost.db;
+let productId = 0;
 
 describe('API tests', () => {
 
@@ -131,10 +132,131 @@ describe('API tests', () => {
       request(app)
       .get('/')
       .expect(res => {
-        res.body = { total: !isNaN(res.body.data.total) }
+        productId = res.body.data.docs[0]._id;
+        res.body = { total: !isNaN(res.body.data.total) };
       })
       .expect(200, { total: true }, done)
     });
+  });
+
+  describe('updating a product', () => {
+    it('with an invalid id should return status 500', done => {
+      request(app)
+      .put('/?id=0')
+      .send({
+        "name": "mocked_name",
+        "description": "mocked_description",
+        "price": "10.34",
+        "category": "mocked_category",
+      })
+      .set('Accept', 'application/json')
+      .expect(500)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('with no name defined should return status 400', done => {
+      request(app)
+      .put('/')
+      .send({
+        "description": "mocked_description",
+        "price": "10.34",
+        "category": "mocked_category",
+      })
+      .set('Accept', 'application/json')
+      .expect(400)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('with no description defined should return status 400', done => {
+      request(app)
+      .put('/')
+      .send({
+        "name": "mocked_name",
+        "price": "10.34",
+        "category": "mocked_category",
+      })
+      .set('Accept', 'application/json')
+      .expect(400)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('with no price defined should return status 400', done => {
+      request(app)
+      .put('/')
+      .send({
+        "name": "mocked_name",
+        "description": "mocked_description",
+        "category": "mocked_category",
+      })
+      .set('Accept', 'application/json')
+      .expect(400)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('with no category defined should return status 400', done => {
+      request(app)
+      .put('/')
+      .send({
+        "name": "mocked_name",
+        "description": "mocked_description",
+        "price": "10.34",
+      })
+      .set('Accept', 'application/json')
+      .expect(400)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('with an invalid parameter should return status 400', done => {
+      request(app)
+      .put('/')
+      .send({
+        "name": "mocked_name",
+        "description": "mocked_description",
+        "price": "10.34",
+        "category": "mocked_category",
+        "invalid_parameter": "mock_invalid",
+      })
+      .set('Accept', 'application/json')
+      .expect(400)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('with valid id and data should return status 200', done => {
+      request(app)
+      .put(`/?id=${productId}`)
+      .send({
+        "name": "mocked_name",
+        "description": "mocked_description",
+        "price": "10.34",
+        "category": "mocked_category",
+      })
+      .set('Accept', 'application/json')
+      .expect(200)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    
   });
 
 });

@@ -12,6 +12,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   router.get('/', productsAPI.getProducts);
   router.post('/', productsAPI.newProduct);
+  router.put('/', productsAPI.updateProduct);
 });
 
 module.exports = router;

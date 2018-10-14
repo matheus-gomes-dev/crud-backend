@@ -13,7 +13,6 @@ const database = {
         { page, limit: 5 },
         (error, result) => {
           if (error) {
-            console.error(error);
             reject('Error while searching for products!');
           };
           resolve(result);
@@ -24,16 +23,28 @@ const database = {
   save: product => {
     return new Promise((resolve, reject) => {
       const newProduct = new Product(product);
-      newProduct.save((error, result) => {
+      newProduct.save((error, data) => {
         if (error) {
-          console.error(error);
           reject('Error while registering new product!');
         };
         resolve({
           message: 'New product succesfully registered!',
-          data: result,
+          data,
         });
       });
+    });
+  },
+  update: (id, product) => {
+    return new Promise((resolve, reject) => {
+      Product.update({ _id: id }, product, { overwrite: true }, (error, data) => {
+        if (error) {
+          reject('Error while updating product!');
+        }
+        resolve({
+          message: 'Product succesfully updated!',
+          data,
+        });
+      })
     });
   }
 }
