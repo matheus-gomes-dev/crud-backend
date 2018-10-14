@@ -1,8 +1,9 @@
 "use strict";
 const config = {
   crudApp: {
-    localhost: {
+    dev: {
       db: "mongodb://localhost:27017/crud-app",
+      tests: "mongodb://localhost:27017/crud-app-tests",
       username: "",
       pass: ""
     },

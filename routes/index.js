@@ -4,7 +4,7 @@ const router = express.Router();
 
 const productsAPI = require('../modules/productsAPI');
 const config = require('../config/config.js');
-const MONGO_URI = config.crudApp.localhost.db;
+const MONGO_URI = config.crudApp.dev.db;
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true });
 const db = mongoose.connection;

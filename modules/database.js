@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const productSchema = require('../schemas/mongooseSchemas');
 const config = require('../config/config.js');
 const Product = mongoose.model('Product', productSchema);
-const MONGO_URI = config.crudApp.localhost.db;
+const MONGO_URI = config.crudApp.dev.db;
 
 const database = {
   find: (queryData, page) => {

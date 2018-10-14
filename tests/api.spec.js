@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 
 const app = require('../app');
 const config = require('../config/config.js');
-const MONGO_URI = config.crudApp.localhost.db;
+const MONGO_TESTS_URI = config.crudApp.dev.tests;
 let productId = 0;
 
 describe('API tests', () => {
 
   // connect to mongoDB before tests
   before(done => {
-    mongoose.connect(MONGO_URI, { useNewUrlParser: true });
+    mongoose.connect(MONGO_TESTS_URI, { useNewUrlParser: true });
     mongoose.connection
     .once('open', () => {
       done();
@@ -18,6 +18,11 @@ describe('API tests', () => {
     .on('error', error => {
       console.log('Error', error);
     });
+  });
+
+  // disconnect to mongoDB after tests
+  after(() => {
+    mongoose.connection.close();
   });
 
   describe('registering a new product', () => {
@@ -277,6 +282,6 @@ describe('API tests', () => {
         done();
       });
     });
-  })
+  });
 
 });
