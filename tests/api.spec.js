@@ -255,8 +255,28 @@ describe('API tests', () => {
         done();
       });
     });
-
-    
   });
+
+  describe('deleting a product', () => {
+    it('with invalid id should return status 500', done => {
+      request(app)
+      .delete(`/?id=0`)
+      .expect(500)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+
+    it('with valid id should return status 200', done => {
+      request(app)
+      .delete(`/?id=${productId}`)
+      .expect(200)
+      .end(err => {
+        if (err) return done(err);
+        done();
+      });
+    });
+  })
 
 });

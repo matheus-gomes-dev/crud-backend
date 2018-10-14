@@ -53,6 +53,17 @@ const productsAPI = {
         res.send({ message });
       });
     });
+  },
+  deleteProduct: (req, res) => {
+    database.delete(req.query.id)
+    .then(message => {
+      res.status(200);
+      res.send({ message });
+    })
+    .catch(message => {
+      res.status(500);
+      res.send({ message });
+    });
   }
 }
 

@@ -46,6 +46,16 @@ const database = {
         });
       })
     });
+  },
+  delete: id => {
+    return new Promise((resolve, reject) => {
+      Product.remove({ _id: id }, error => {
+        if (error) {
+          reject('Error while removing product!');
+        }
+        resolve('Product succesfully removed!');
+      })
+    })
   }
 }
 

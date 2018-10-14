@@ -13,6 +13,7 @@ db.once('open', function() {
   router.get('/', productsAPI.getProducts);
   router.post('/', productsAPI.newProduct);
   router.put('/', productsAPI.updateProduct);
+  router.delete('/', productsAPI.deleteProduct);
 });
 
 module.exports = router;
