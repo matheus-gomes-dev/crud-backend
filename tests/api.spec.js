@@ -19,8 +19,8 @@ describe('API tests', () => {
     });
   });
 
-  describe('registering a valid new product', () => {
-    it('should return status 200', done => {
+  describe('registering a new product', () => {
+    it('with valid information should return status 200', done => {
       request(app)
       .post('/')
       .send({
@@ -36,10 +36,8 @@ describe('API tests', () => {
         done();
       });
     });
-  });
 
-  describe('registering a product without name', () => {
-    it('should return status 400', done => {
+    it('without name should return status 400', done => {
       request(app)
       .post('/')
       .send({
@@ -54,10 +52,8 @@ describe('API tests', () => {
         done();
       });
     });
-  });
 
-  describe('registering a product without description', () => {
-    it('should return status 400', done => {
+    it('without description should return status 400', done => {
       request(app)
       .post('/')
       .send({
@@ -72,10 +68,8 @@ describe('API tests', () => {
         done();
       });
     });
-  });
 
-  describe('registering a product without price', () => {
-    it('should return status 400', done => {
+    it('without price should return status 400', done => {
       request(app)
       .post('/')
       .send({
@@ -90,10 +84,8 @@ describe('API tests', () => {
         done();
       });
     });
-  });
 
-  describe('registering a product without category', () => {
-    it('should return status 400', done => {
+    it('without category should return status 400', done => {
       request(app)
       .post('/')
       .send({
@@ -108,10 +100,8 @@ describe('API tests', () => {
         done();
       });
     });
-  });
 
-  describe('registering a product with an invalid parameter', () => {
-    it('should return status 400', done => {
+    it('with an invalid parameter should return status 400', done => {
       request(app)
       .post('/')
       .send({
@@ -136,9 +126,7 @@ describe('API tests', () => {
       .get('/')
       .expect(200, done)
     });
-  });
 
-  describe('getting products', () => {
     it('should return the total number of products', done => {
       request(app)
       .get('/')
