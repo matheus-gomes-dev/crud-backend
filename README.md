@@ -10,7 +10,8 @@ npm install
 npm start
 ```
 
-API will be running on localhost:3000
+API will be running on localhost:3000. 
+You will need [MongoDB](https://docs.mongodb.com/manual/installation/) running on port 27017.
 
 # Tests
 To execute the unit tests, run:
