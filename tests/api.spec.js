@@ -5,7 +5,7 @@ const app = require('../app');
 const config = require('../config/config.js');
 const MONGO_URI = config.crudApp.localhost.db;
 
-describe('POST to register a new product', () => {
+describe('API tests', () => {
 
   // connect to mongoDB before tests
   before(done => {
@@ -127,6 +127,25 @@ describe('POST to register a new product', () => {
         if (err) return done(err);
         done();
       });
+    });
+  });
+
+  describe('getting products', () => {
+    it('should return status 200', done => {
+      request(app)
+      .get('/')
+      .expect(200, done)
+    });
+  });
+
+  describe('getting products', () => {
+    it('should return the total number of products', done => {
+      request(app)
+      .get('/')
+      .expect(res => {
+        res.body = { total: !isNaN(res.body.data.total) }
+      })
+      .expect(200, { total: true }, done)
     });
   });
 
