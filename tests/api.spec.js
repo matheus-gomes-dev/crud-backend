@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 
 const app = require('../app');
 const config = require('../config/config.js');
-const MONGO_TESTS_URI = config.crudApp.dev.tests;
+const MONGO_URI = config.crudApp.dev.db;
 let productId = 0;
 
 describe('API tests', () => {
 
   // connect to mongoDB before tests
   before(done => {
-    mongoose.connect(MONGO_TESTS_URI, { useNewUrlParser: true });
+    mongoose.connect(MONGO_URI, { useNewUrlParser: true });
     mongoose.connection
     .once('open', () => {
       done();
